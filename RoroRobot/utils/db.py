@@ -1,5 +1,6 @@
 __all__ = ['get_collection']
 
+
 import asyncio
 from motor.motor_asyncio import AsyncIOMotorClient
 from motor.core import AgnosticClient, AgnosticDatabase, AgnosticCollection
