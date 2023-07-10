@@ -53,7 +53,7 @@ if sys.version_info[0] < 3 or sys.version_info[1] < 9:
 ENV = bool(os.environ.get("ENV", False))
 
 if ENV:
-    TOKEN = os.environ.get("TOKEN", None)
+    BOT_TOKEN = os.environ.get("TOKEN", None)
 
     try:
         OWNER_ID = int(os.environ.get("OWNER_ID", None))
@@ -149,7 +149,7 @@ if ENV:
 else:
     from RoroRobot.config import Development as Config
 
-    TOKEN = Config.TOKEN
+    BOT_TOKEN = Config.TOKEN
 
     try:
         OWNER_ID = int(Config.OWNER_ID)
