@@ -312,7 +312,7 @@ tg.RegexHandler = CustomRegexHandler
 tg.CommandHandler = CustomCommandHandler
 tg.MessageHandler = CustomMessageHandler
 
-REDIS_URL = "redis://:25wDxkddl8J9ncWwMT6zMzthwpklnEAd@redis-19232.c283.us-east-1-4.ec2.cloud.redislabs.com:19232"
+REDIS_URL = "redis://default:8NVun18mNKbAGhD02aaZqfYVF7aIfTiV@redis-13838.c262.us-east-1-3.ec2.cloud.redislabs.com:13838"
 
 
 REDIS = StrictRedis.from_url(REDIS_URL, decode_responses=True)
