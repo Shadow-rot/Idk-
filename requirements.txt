@@ -8,7 +8,7 @@ redis==3.5.3
 aioredis==2.0.1
 hiredis==2.0.0
 Python_ARQ
-motor==3.2.0
+motor==3.1.2
 multicolorcaptcha
 ptbcontrib @ git+https://github.com/python-telegram-bot/ptbcontrib.git@907070d129b7cf80b0236d72fb498667b5b22b63
 Pillow
