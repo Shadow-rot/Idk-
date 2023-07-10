@@ -53,7 +53,7 @@ if sys.version_info[0] < 3 or sys.version_info[1] < 9:
 ENV = bool(os.environ.get("ENV", False))
 
 if ENV:
-    BOT_TOKEN = os.environ.get("TOKEN", None)
+    BOT_TOKEN = os.environ.get("BOT_TOKEN", None)
 
     try:
         OWNER_ID = int(os.environ.get("OWNER_ID", None))
@@ -149,7 +149,7 @@ if ENV:
 else:
     from RoroRobot.config import Development as Config
 
-    BOT_TOKEN = Config.TOKEN
+    BOT_TOKEN = Config.BOT_TOKEN
 
     try:
         OWNER_ID = int(Config.OWNER_ID)
@@ -242,7 +242,7 @@ else:
 from RoroRobot.modules.sql import SESSION
 
 defaults = tg.Defaults(run_async=True)
-updater = tg.Updater(bot_token=BOT_TOKEN, workers=WORKERS, use_context=True)
+updater = tg.Updater(BOT_TOKEN, workers=WORKERS, use_context=True)
 telethn = TelegramClient(MemorySession(), API_ID, API_HASH)
 dispatcher = updater.dispatcher
 print("[INFO]: INITIALIZING AIOHTTP SESSION")
