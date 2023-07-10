@@ -2,8 +2,7 @@ __all__ = ['get_collection']
 
 
 import asyncio
-from motor.motor_asyncio import AsyncIOMotorClient
-from motor_tornado import MotorClientEncryption
+from motor_tornado.motor_asyncio import AsyncIOMotorClient
 from motor.core import AgnosticClient, AgnosticDatabase, AgnosticCollection
 from RoroRobot import MONGO_DB_URI as DB_URL
 
