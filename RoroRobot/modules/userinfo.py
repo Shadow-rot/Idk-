@@ -32,7 +32,7 @@ from RoroRobot import (
     StartTime,
     SUPPORT_CHAT,
 )
-from RoroRobot.__main__ import STATS, TOKEN, USER_INFO
+from RoroRobot.__main__ import STATS, BOT_TOKEN, USER_INFO
 from RoroRobot.modules.sql import SESSION
 import RoroRobot.modules.sql.userinfo_sql as sql
 from RoroRobot.modules.disable import DisableAbleCommandHandler
