@@ -20,7 +20,7 @@ from RoroRobot import (
     OWNER_ID,
     PORT,
     SUPPORT_CHAT,
-    TOKEN,
+    BOT_TOKEN,
     URL,
     WEBHOOK,
     SUPPORT_CHAT,
