@@ -18,7 +18,7 @@ class Config(object):
     ANILIST_SECRET = "NeCEq9A1hVnjsjZlTZyNvqK11krQ4HtSliaM7rTN"
     API_ID = 19733238  # integer value, dont use ""
     API_HASH = "fe955e75a36ec386ae9ded33061fbd98"
-    TOKEN = ""  # This var used to be API_KEY but it is now TOKEN, adjust accordingly.
+    BOT_TOKEN = "6057458299:AAGpnzKWjcQ0MUNu5KRwMeSKJjnCfL3l7tI"  # This var used to be API_KEY but it is now TOKEN, adjust accordingly.
     OWNER_ID = 5148561602  # If you dont know, run the bot and do /id in your private chat with it, also an integer
     OWNER_USERNAME = "Aceadi"
     SUPPORT_CHAT = "NexusXsupport"  # Your own group for support, do not add the @
