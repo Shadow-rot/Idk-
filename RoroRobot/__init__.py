@@ -242,7 +242,7 @@ else:
 from RoroRobot.modules.sql import SESSION
 
 defaults = tg.Defaults(run_async=True)
-updater = tg.Updater(bot_token=TOKEN, workers=WORKERS, use_context=True)
+updater = tg.Updater(bot_token=BOT_TOKEN, workers=WORKERS, use_context=True)
 telethn = TelegramClient(MemorySession(), API_ID, API_HASH)
 dispatcher = updater.dispatcher
 print("[INFO]: INITIALIZING AIOHTTP SESSION")
@@ -254,7 +254,7 @@ pbot = Client(
     ":memory:",
     api_id=API_ID,
     api_hash=API_HASH,
-    bot_token=TOKEN,
+    bot_token=BOT_TOKEN,
     workers=min(32, os.cpu_count() + 4),
 )
 apps = []
