@@ -19,11 +19,11 @@ class Language:
             return en_string
 
     def reload_strings(self) -> None:
-        for filename in os.listdir(r"./TeamX/language"):
+        for filename in os.listdir(r"./RoroRobot/language"):
             if filename.endswith(".yaml"):
                 language_name = filename[:-5]
                 self.languages[language_name] = yaml.safe_load(
-                    open(r"./TeamX/language/" + filename, encoding="utf8")
+                    open(r"./RoroRobot/language/" + filename, encoding="utf8")
                 )
 
     def get_languages(self) -> Dict:

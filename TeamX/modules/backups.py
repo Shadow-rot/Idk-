@@ -11,15 +11,15 @@ from TeamX.__main__ import DATA_IMPORT
 from TeamX.modules.helper_funcs.chat_status import user_admin
 from TeamX.modules.helper_funcs.alternate import typing_action
 
-# from TeamX.modules.rules import get_rules
+# from RoroRobot.modules.rules import get_rules
 import TeamX.modules.sql.rules_sql as rulessql
 
-# from TeamX.modules.sql import warns_sql as warnssql
+# from RoroRobot.modules.sql import warns_sql as warnssql
 import TeamX.modules.sql.blacklist_sql as blacklistsql
 from TeamX.modules.sql import disable_sql as disabledsql
 
-# from TeamX.modules.sql import cust_filters_sql as filtersql
-# import TeamX.modules.sql.welcome_sql as welcsql
+# from RoroRobot.modules.sql import cust_filters_sql as filtersql
+# import RoroRobot.modules.sql.welcome_sql as welcsql
 import TeamX.modules.sql.locks_sql as locksql
 from TeamX.modules.connection import connected
 

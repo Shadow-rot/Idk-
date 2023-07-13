@@ -410,9 +410,8 @@ async def remove_gban_user(user_id: int):
         return
     return gbansdb.delete_one({"user_id": user_id})
 
-
 async def _get_lovers(chat_id: int):
-    lovers = coupledb.find_one({"chat_id": chat_id})
+    lovers = await coupledb.find_one({"chat_id": chat_id})
     if not lovers:
         return {}
     return lovers["couple"]
@@ -424,16 +423,17 @@ async def get_couple(chat_id: int, date: str):
         return lovers[date]
     return False
 
+async def del_couple(chat_id : int):
+    lovers = await coupledb.find_one({"chat_id": chat_id})
+    if lovers :
+        return await coupledb.delete_one({"chat_id": chat_id})
 
 async def save_couple(chat_id: int, date: str, couple: dict):
     lovers = await _get_lovers(chat_id)
     lovers[date] = couple
-    coupledb.update_one(
-        {"chat_id": chat_id},
-        {"$set": {"couple": lovers}},
-        upsert=True,
+    await coupledb.update_one(
+        {"chat_id": chat_id}, {"$set": {"couple": lovers}}, upsert=True
     )
-
 
 async def is_captcha_on(chat_id: int) -> bool:
     chat = captchadb.find_one({"chat_id": chat_id})
