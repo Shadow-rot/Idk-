@@ -1,10 +1,8 @@
 import random
 from datetime import datetime
 from TeamX import pbot as pgram
-from TeamX import DRAGONS as SUPREME_USERS
 from pyrogram import filters
-
-from TeamX.ex_plugins.dbfunctions import save_couple,del_couple,get_couple
+from TeamX.ex_plugins.dbfunctions import get_couple,save_couple
 
 def dt():
     now = datetime.now()
@@ -33,32 +31,6 @@ CAP = """
 `ɴᴇᴡ ᴄᴏᴜᴘʟᴇ ᴏғ ᴛʜᴇ ᴅᴀʏ ᴄᴀɴ ʙᴇ ᴄʜᴏsᴇɴ ᴀᴛ 12AM {2}`
 """
 COUPLES_PIC = "https://te.legra.ph/file/1a51f3b709f83df326c75.jpg"
-
-
-@pgram.on_message(filters.command("scouple") & filters.group)
-async def _chutiya(_, message):
-    if message.from_user.id not in SUPREME_USERS:
-        return
-    chat_id = message.chat.id
-    if len(message.command) != 3:
-        return await message.reply_text("**ʜᴇʏ ᴍᴀsᴛᴇʀ ʏᴏᴜ ɴᴇᴇᴅ ᴛᴏ ɢɪᴠᴇ ᴍᴇ ᴛᴡᴏ ᴜsᴇʀs ᴜsᴇʀɴᴀᴍᴇ/ɪᴅ**")
-    is_selected = await get_couple(chat_id, today)
-    user1 = int(message.command[1]) if message.command[1].isdigit() else str(message.command[1]) 
-    user2 = int(message.command[2]) if message.command[2].isdigit() else str(message.command[2]) 
-    try :
-        papa = (await _.get_chat_member(chat_id,user1)).user.id
-        mumma = (await _.get_chat_member(chat_id,user2)).user.id
-    except Exception as e:
-        return await message.reply_text(e)  
-    if not is_selected:
-        couple = {"c1_id": papa, "c2_id": mumma}
-        await save_couple(chat_id, today, couple)        
-    elif is_selected:
-        await del_couple(chat_id)
-        couple = {"c1_id": papa, "c2_id": mumma}
-        await save_couple(chat_id, today, couple)
-    return await message.reply_text("**sᴜᴄᴄᴇssғᴜʟʟʏ sᴇᴛ ᴄᴏᴜᴘʟᴇs ᴏғ ᴛʜᴇ ᴅᴀʏ ᴅᴏ /couple ᴛᴏ ɢᴇᴛ ᴄᴏᴜᴘʟᴇs ᴏғ ᴛʜᴇ ᴅᴀʏ**")        
-
 
 
 @pgram.on_message(filters.command(["couple","couples","shipping"]) & ~filters.private)
