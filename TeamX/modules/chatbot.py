@@ -23,7 +23,7 @@ from telegram.ext import (
 from telegram.utils.helpers import mention_html
 
 import TeamX.modules.sql.chatbot_sql as sql
-from TeamX import BOT_ID, BOT_NAME, BOT_USERNAME, dispatcher
+from TeamX import BOT_ID,  BOT_USERNAME, dispatcher
 from TeamX.modules.helper_funcs.chat_status import user_admin, user_admin_no_reply
 from TeamX.modules.log_channel import gloggable
 
@@ -138,7 +138,7 @@ def chatbot(update: Update, context: CallbackContext):
 
 
 __help__ = f"""
-*{BOT_NAME} ʜᴀs ᴀɴ ᴄʜᴀᴛʙᴏᴛ ᴡʜɪᴄʜ ᴘʀᴏᴠɪᴅᴇs ʏᴏᴜ ᴀ sᴇᴇᴍɪɴɢʟᴇss ᴄʜᴀᴛᴛɪɴɢ ᴇxᴘᴇʀɪᴇɴᴄᴇ :**
+*Our Bot ʜᴀs ᴀɴ ᴄʜᴀᴛʙᴏᴛ ᴡʜɪᴄʜ ᴘʀᴏᴠɪᴅᴇs ʏᴏᴜ ᴀ sᴇᴇᴍɪɴɢʟᴇss ᴄʜᴀᴛᴛɪɴɢ ᴇxᴘᴇʀɪᴇɴᴄᴇ :**
 
  »  /ᴄʜᴀᴛʙᴏᴛ *:* sʜᴏᴡs ᴄʜᴀᴛʙᴏᴛ ᴄᴏɴᴛʀᴏʟ ᴘᴀɴᴇʟ
 """
