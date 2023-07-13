@@ -754,27 +754,27 @@ async def get_rss_feeds_count() -> int:
 
 
 
-async def _get_lovers(chat_id: int):
-    lovers = await coupledb.find_one({"chat_id": chat_id})
+def _get_lovers(chat_id: int):
+    lovers = coupledb.find_one({"chat_id": chat_id})
     if not lovers:
         return {}
     return lovers["couple"]
 
 
-async def get_couple(chat_id: int, date: str):
-    lovers = await _get_lovers(chat_id)
+def get_couple(chat_id: int, date: str):
+    lovers =  _get_lovers(chat_id)
     if date in lovers:
         return lovers[date]
     return False
 
-async def del_couple(chat_id : int):
-    lovers = await coupledb.find_one({"chat_id": chat_id})
+def del_couple(chat_id : int):
+    lovers =  coupledb.find_one({"chat_id": chat_id})
     if lovers :
-        return await coupledb.delete_one({"chat_id": chat_id})
+        return  coupledb.delete_one({"chat_id": chat_id})
 
-async def save_couple(chat_id: int, date: str, couple: dict):
-    lovers = await _get_lovers(chat_id)
+def save_couple(chat_id: int, date: str, couple: dict):
+    lovers =  _get_lovers(chat_id)
     lovers[date] = couple
-    await coupledb.update_one(
+    coupledb.update_one(
         {"chat_id": chat_id}, {"$set": {"couple": lovers}}, upsert=True
     )
