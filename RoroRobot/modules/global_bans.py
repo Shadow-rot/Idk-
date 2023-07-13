@@ -39,7 +39,6 @@ from RoroRobot.modules.helper_funcs.extraction import (
     extract_user_and_text,
 )
 from RoroRobot.modules.helper_funcs.misc import send_to_list
-from RoroRobot.modules.language import gs
 
 GBAN_ENFORCE_GROUP = 6
 
@@ -537,31 +536,17 @@ def __migrate__(old_chat_id, new_chat_id):
 def __chat_settings__(chat_id, user_id):
     return f"This chat is enforcing *gbans*: `{sql.does_chat_gban(chat_id)}`."
 
-def helps(chat):
-    return gs(chat, "bansmutes_help")
 
-__mod_name__ = "Ban/Mutes"
-
-__help__ ="""
-──「 Bans/Mutes 」──
-*User Commands:*
-  ➢ `/kickme`*:* kicks the user who issued the command
-  
+__help__ = f"""
 *Admins only:*
-  ➢ `/ban <userhandle>`*:* bans a user. (via handle, or reply)
-  banme
-  ➢ `/sban <userhandle>`*:* Silently ban a user. Deletes command, Replied message and doesn't reply. (via handle, or reply)
-  ➢ `/tban <userhandle> x(m/h/d)`*:* bans a user for `x` time. (via handle, or reply). `m` = `minutes`, `h` = `hours`, `d` = `days`.
-  ➢ `/unban <userhandle>`*:* unbans a user. (via handle, or reply)
-  ➢ `/kick <userhandle>`*:* kicks a user out of the group, (via handle, or reply)
-  ➢ `/mute <userhandle>`*:* silences a user. Can also be used as a reply, muting the replied to user.
-  ➢ `/tmute <userhandle> x(m/h/d)`*:* mutes a user for x time. (via handle, or reply). `m` = `minutes`, `h` = `hours`, `d` = `days`.
-  ➢ `/unmute <userhandle>`*:* unmutes a user. Can also be used as a reply, muting the replied to user.
-  ➢ `/zombies`*:* searches deleted accounts
-  ➢ `/zombies clean`*:* removes deleted accounts from the group.
-  ➢ `/snipe <chatid> <string>`*:* Make me send a message to a specific chat.
+❂ /antispam <on/off/yes/no>: Will toggle our antispam tech or return your current settings.
+Anti-Spam, used by bot devs to ban spammers across all groups. This helps protect \
+you and your groups by removing spam flooders as quickly as possible.
+Note: Users can appeal gbans or report spammers at @{SUPPORT_CHAT}
+❂ /flood: Get the current antiflood settings
+❂ /setflood <number/off/no>: Set the number of messages after which to take action on a user. Set to '0', 'off', or 'no' to disable.
+❂ /setfloodmode <action type>: Choose which action to take on a user who has been flooding. Options: ban/kick/mute/tban/tmute.
 """
-
 
 GBAN_HANDLER = CommandHandler("gban", gban, run_async=True)
 UNGBAN_HANDLER = CommandHandler("ungban", ungban, run_async=True)
@@ -578,6 +563,7 @@ dispatcher.add_handler(UNGBAN_HANDLER)
 dispatcher.add_handler(GBAN_LIST)
 dispatcher.add_handler(GBAN_STATUS)
 
+__mod_name__ = "Anti-Spam"
 __handlers__ = [GBAN_HANDLER, UNGBAN_HANDLER, GBAN_LIST, GBAN_STATUS]
 
 if STRICT_GBAN:  # enforce GBANS if this is set
