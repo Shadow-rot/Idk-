@@ -1,7 +1,7 @@
 import threading
 from TeamX.modules.sql import BASE, SESSION
 from sqlalchemy import Boolean, Column, String, UnicodeText
-from sqlalchemy.sql.sqltypes import BigInteger
+from sqlalchemy.sql.sqltypes import Integer
 
 
 class GloballyBannedUsers(BASE):
