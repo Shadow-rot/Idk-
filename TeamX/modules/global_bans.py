@@ -17,14 +17,18 @@ import TeamX.modules.sql.global_bans_sql as sql
 from TeamX.modules.sql.users_sql import get_user_com_chats
 from TeamX import (
     DEV_USERS,
+    EVENT_LOGS,
     OWNER_ID,
+    STRICT_GBAN,
     DRAGONS,
+    SUPPORT_CHAT,
+    SPAMWATCH_SUPPORT_CHAT,
     DEMONS,
     TIGERS,
     WOLVES,
+    sw,
     dispatcher,
 )
-from TeamX import STRICT_GBAN, SUPPORT_CHAT, EVENT_LOGS as LOG_CHANNEL
 from TeamX.modules.helper_funcs.chat_status import (
     is_user_admin,
     support_plus,
@@ -185,12 +189,12 @@ def gban(update: Update, context: CallbackContext):
         else:
             log_message += f"\n<b>Reason:</b> <code>{reason}</code>"
 
-    if LOG_CHANNEL:
+    if EVENT_LOGS:
         try:
-            log = bot.send_message(LOG_CHANNEL, log_message, parse_mode=ParseMode.HTML)
+            log = bot.send_message(EVENT_LOGS, log_message, parse_mode=ParseMode.HTML)
         except BadRequest as excp:
             log = bot.send_message(
-                LOG_CHANNEL,
+                EVENT_LOGS,
                 log_message
                 + "\n\nFormatting has been disabled due to an unexpected error.",
             )
@@ -219,9 +223,9 @@ def gban(update: Update, context: CallbackContext):
                 pass
             else:
                 message.reply_text(f"Could not gban due to: {excp.message}")
-                if LOG_CHANNEL:
+                if EVENT_LOGS:
                     bot.send_message(
-                        LOG_CHANNEL,
+                        EVENT_LOGS,
                         f"Could not gban due to {excp.message}",
                         parse_mode=ParseMode.HTML,
                     )
@@ -236,7 +240,7 @@ def gban(update: Update, context: CallbackContext):
         except TelegramError:
             pass
 
-    if LOG_CHANNEL:
+    if EVENT_LOGS:
         log.edit_text(
             log_message + f"\n<b>Chats affected:</b> <code>{gbanned_chats}</code>",
             parse_mode=ParseMode.HTML,
@@ -316,12 +320,12 @@ def ungban(update: Update, context: CallbackContext):
         f"<b>Event Stamp:</b> <code>{current_time}</code>"
     )
 
-    if LOG_CHANNEL:
+    if EVENT_LOGS:
         try:
-            log = bot.send_message(LOG_CHANNEL, log_message, parse_mode=ParseMode.HTML)
+            log = bot.send_message(EVENT_LOGS, log_message, parse_mode=ParseMode.HTML)
         except BadRequest as excp:
             log = bot.send_message(
-                LOG_CHANNEL,
+                EVENT_LOGS,
                 log_message
                 + "\n\nFormatting has been disabled due to an unexpected error.",
             )
@@ -349,9 +353,9 @@ def ungban(update: Update, context: CallbackContext):
                 pass
             else:
                 message.reply_text(f"Could not un-gban due to: {excp.message}")
-                if LOG_CHANNEL:
+                if EVENT_LOGS:
                     bot.send_message(
-                        LOG_CHANNEL,
+                        EVENT_LOGS,
                         f"Could not un-gban due to: {excp.message}",
                         parse_mode=ParseMode.HTML,
                     )
@@ -366,7 +370,7 @@ def ungban(update: Update, context: CallbackContext):
 
     sql.ungban_user(user_id)
 
-    if LOG_CHANNEL:
+    if EVENT_LOGS:
         log.edit_text(
             log_message + f"\n<b>Chats affected:</b> {ungbanned_chats}",
             parse_mode=ParseMode.HTML,
@@ -410,6 +414,27 @@ def gbanlist(update: Update, context: CallbackContext):
 
 
 def check_and_ban(update, user_id, should_message=True):
+
+    if user_id in TIGERS or user_id in WOLVES:
+        sw_ban = None
+    else:
+        try:
+            sw_ban = sw.get_ban(int(user_id))
+        except:
+            sw_ban = None
+
+    if sw_ban:
+        update.effective_chat.ban_member(user_id)
+        if should_message:
+            update.effective_message.reply_text(
+                f"<b>Alert</b>: this user is globally banned.\n"
+                f"<code>*bans them from here*</code>.\n"
+                f"<b>Appeal chat</b>: {SPAMWATCH_SUPPORT_CHAT}\n"
+                f"<b>User ID</b>: <code>{sw_ban.id}</code>\n"
+                f"<b>Ban Reason</b>: <code>{html.escape(sw_ban.reason)}</code>",
+                parse_mode=ParseMode.HTML,
+            )
+        return
 
     if sql.is_user_gbanned(user_id):
         update.effective_chat.ban_member(user_id)
@@ -512,6 +537,16 @@ def __chat_settings__(chat_id, user_id):
     return f"This chat is enforcing *gbans*: `{sql.does_chat_gban(chat_id)}`."
 
 
+__help__ = f"""
+*Admins only:*
+❂ /antispam <on/off/yes/no>: Will toggle our antispam tech or return your current settings.
+Anti-Spam, used by bot devs to ban spammers across all groups. This helps protect \
+you and your groups by removing spam flooders as quickly as possible.
+Note: Users can appeal gbans or report spammers at @{SUPPORT_CHAT}
+❂ /flood: Get the current antiflood settings
+❂ /setflood <number/off/no>: Set the number of messages after which to take action on a user. Set to '0', 'off', or 'no' to disable.
+❂ /setfloodmode <action type>: Choose which action to take on a user who has been flooding. Options: ban/kick/mute/tban/tmute.
+"""
 
 GBAN_HANDLER = CommandHandler("gban", gban, run_async=True)
 UNGBAN_HANDLER = CommandHandler("ungban", ungban, run_async=True)
@@ -528,28 +563,9 @@ dispatcher.add_handler(UNGBAN_HANDLER)
 dispatcher.add_handler(GBAN_LIST)
 dispatcher.add_handler(GBAN_STATUS)
 
-
+__mod_name__ = "Anti-Spam"
 __handlers__ = [GBAN_HANDLER, UNGBAN_HANDLER, GBAN_LIST, GBAN_STATUS]
 
 if STRICT_GBAN:  # enforce GBANS if this is set
     dispatcher.add_handler(GBAN_ENFORCER, GBAN_ENFORCE_GROUP)
     __handlers__.append((GBAN_ENFORCER, GBAN_ENFORCE_GROUP))
-
-
-__mod_name__ = "Anti-Spam 🚫"
-
-
-__help__ = f"""
-*Admins only:*
-❂ `/antispam <on/off/yes/no>`*:* Will toggle our antispam tech or return your current settings.
-
-Anti-Spam, used by bot devs to ban spammers across all groups. This helps protect \
-you and your groups by removing spam flooders as quickly as possible.
-*Note:* Users can appeal gbans or report spammers at @{SUPPORT_CHAT}
-
-This also integrates @Spamwatch API to remove Spammers as much as possible from your chatroom!
-*What is SpamWatch?*
-SpamWatch maintains a large constantly updated ban-list of spambots, trolls, bitcoin spammers and unsavoury characters[.](https://telegra.ph/file/f584b643c6f4be0b1de53.jpg)
-Constantly help banning spammers off from your group automatically So, you wont have to worry about spammers storming your group.
-*Note:* Users can appeal spamwatch bans at @SpamwatchSupport
-"""
