@@ -7,7 +7,7 @@ import asyncio
 import time
 import spamwatch
 import telegram.ext as tg
-
+from motor.motor_asyncio import AsyncIOMotorClient as MongoClient
 from inspect import getfullargspec
 from redis import StrictRedis
 from aiohttp import ClientSession
@@ -22,6 +22,8 @@ from pyrogram.types import Chat, User
 from ptbcontrib.postgres_persistence import PostgresPersistence
 
 StartTime = time.time()
+mongo = MongoClient(MONGO_DB_URL)
+db = mongo.Zoro
 
 def get_user_list(__init__, key):
     with open("{}/TeamX/{}".format(os.getcwd(), __init__), "r") as json_file:
