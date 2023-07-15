@@ -202,7 +202,7 @@ def gban(update: Update, context: CallbackContext):
     else:
         send_to_list(bot, DRAGONS + DEMONS, log_message, html=True)
 
-    sql.gban_user(user_id, user_chat.username or user_chat.first_name, reason)
+   # sql.gban_user(user_id, user_chat.username or user_chat.first_name, reason)
 
     chats = get_user_com_chats(user_id)
     gbanned_chats = 0
@@ -235,21 +235,21 @@ def gban(update: Update, context: CallbackContext):
                         DRAGONS + DEMONS,
                         f"Could not gban due to: {excp.message}",
                     )
-                sql.ungban_user(user_id)
+          #      sql.ungban_user(user_id)
                 return
         except TelegramError:
             pass
 
     if EVENT_LOGS:
         log.edit_text(
-            log_message + f"\n<b>Chats affected:</b> <code>{gbanned_chats}</code>",
+            log_message + f"Done",
             parse_mode=ParseMode.HTML,
         )
     else:
         send_to_list(
             bot,
             DRAGONS + DEMONS,
-            f"Gban complete! (User banned in <code>{gbanned_chats}</code> chats)",
+            f"Gban complete!",
             html=True,
         )
 
