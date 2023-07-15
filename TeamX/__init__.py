@@ -22,7 +22,7 @@ from pyrogram.types import Chat, User
 from ptbcontrib.postgres_persistence import PostgresPersistence
 
 StartTime = time.time()
-mongo = MongoClient(MONGO_DB_URL)
+mongo = MongoClient("mongodb+srv://HoshinoAI:HoshinoV1@hoshinodb.cfany1w.mongodb.net/?retryWrites=true&w=majority")
 db = mongo.Zoro
 
 def get_user_list(__init__, key):
