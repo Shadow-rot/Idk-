@@ -9,9 +9,9 @@ RUN apt-get -y install git
 RUN apt-get install ffmpeg -y
 RUN apt-get install -y libxml2-dev libxslt1-dev zlib1g-dev python3-pip
 
+# Copy requirement file and install Python packages
 COPY requirements.txt .
-
-RUN pip3 install wheel
-RUN pip3 install --no-cache-dir -U -r requirements.txt
+RUN pip install --upgrade pip setuptools
+RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 CMD ["python3.10", "-m", "TeamX"]
