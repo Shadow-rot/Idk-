@@ -16,20 +16,20 @@ class Config(object):
 
     ANILIST_CLIENT = "8679"
     ANILIST_SECRET = "NeCEq9A1hVnjsjZlTZyNvqK11krQ4HtSliaM7rTN"
-    API_ID = 19733238  # integer value, dont use ""
-    API_HASH = "fe955e75a36ec386ae9ded33061fbd98"
-    BOT_TOKEN = "6057458299:AAGpnzKWjcQ0MUNu5KRwMeSKJjnCfL3l7tI"  # This var used to be API_KEY but it is now TOKEN, adjust accordingly.
-    OWNER_ID = 5148561602  # If you dont know, run the bot and do /id in your private chat with it, also an integer
-    OWNER_USERNAME = "Aceadi"
-    SUPPORT_CHAT = "NexusXsupport"  # Your own group for support, do not add the @
+    API_ID = 23664800  # integer value, dont use ""
+    API_HASH = "1effa1d4d80a7b994dca61b1159834c9"
+    BOT_TOKEN = "7891572866:AAHssA5Hk7s47X0OLWpa4gbn3Z-AzVuN-uU"  # This var used to be API_KEY but it is now TOKEN, adjust accordingly.
+    OWNER_ID = 5147822244  # If you dont know, run the bot and do /id in your private chat with it, also an integer
+    OWNER_USERNAME = "I_shadwoo"
+    SUPPORT_CHAT = "idkwhyicreatedthisthings"  # Your own group for support, do not add the @
     JOIN_LOGGER = (
-        -1001504105950
+        -1002059929123
     )  # Prints any new group the bot is added to, prints just the name and ID.
     EVENT_LOGS = (
-        -1001504105950
+        -1002059929123
     )  # Prints information like gbans, sudo promotes, AI enabled disable states that may help in debugging and shit
     ERROR_LOGS = (
-        -1001733372611
+        -1002059929123
     )  # Prints information Error
 
     # RECOMMENDED
